@@ -114,14 +114,15 @@ CREATE TABLE `payment`(
 )ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
 CREATE TABLE `web_order`(
-	`id` INT NOT NULL AUTO_INCREMENT , 
-	`user_id` INT NOT NULL,
+    `id` INT NOT NULL AUTO_INCREMENT ,
+    `user_id` INT NOT NULL,
     `address_id` INT,
-    `payment_id` INT NOT NULL,  
-    PRIMARY KEY(`id`), 
-	FOREIGN KEY(`user_id`) REFERENCES `users`(`id`), 
-	FOREIGN KEY(`address_id`) REFERENCES `address`(`id`),
-	FOREIGN KEY(`payment_id`) REFERENCES `payment`(`id`)
+    `payment_id` INT NOT NULL,
+    `status` VARCHAR(100) NOT NULL,
+    PRIMARY KEY(`id`),
+    FOREIGN KEY(`user_id`) REFERENCES `users`(`id`),
+    FOREIGN KEY(`address_id`) REFERENCES `address`(`id`),
+    FOREIGN KEY(`payment_id`) REFERENCES `payment`(`id`)
 )ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1; 
 
 CREATE TABLE `web_order_quantities`(

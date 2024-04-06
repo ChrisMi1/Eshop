@@ -31,4 +31,9 @@ public class AppExceptionHandler {
         return new ResponseEntity<>(userNotFound.getMessage(), HttpStatus.NOT_FOUND);
     }
 
+    @ExceptionHandler
+    public ResponseEntity<String> handleException(IllegalArgumentException IllegalArgumentException){
+        return new ResponseEntity<>(IllegalArgumentException.getMessage(), HttpStatus.NOT_FOUND);
+    }
+
 }

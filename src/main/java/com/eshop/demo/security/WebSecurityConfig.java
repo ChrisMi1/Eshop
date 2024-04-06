@@ -25,7 +25,7 @@ public class WebSecurityConfig {
         http.authorizeRequests()
                 .requestMatchers("/auth/login","/auth/register","/ShopNow","/ShopNow/{categoryId}","/ShopNow/search","/ShopNow/profile","/orders","/admin","/Users").permitAll()
                 .requestMatchers("/cart").authenticated()
-                .requestMatchers("/Products","/Products/{productId}","/Users/{userId}").hasRole("ADMIN");
+                .requestMatchers("/Products","/Products/{productId}","/Users/{userId}","/admin/orders","/admin/orders").hasRole("ADMIN");
         return http.build();
     }
 }

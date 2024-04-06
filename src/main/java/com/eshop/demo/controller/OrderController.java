@@ -8,10 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -44,4 +41,15 @@ public class OrderController {
             return new ResponseEntity<>(orders, HttpStatus.OK);
         }
     }
+
+    @GetMapping("/admin/orders")
+    public ResponseEntity<?> showAllOrders(){
+        return new ResponseEntity<>(orderService.showAllOrders(),HttpStatus.OK);
+    }
+
+    @PutMapping("/admin/orders")
+    public ResponseEntity<?> updateStatusOrder(@RequestParam int order_id,@RequestParam String status) throws IllegalArgumentException{
+        return new ResponseEntity<>(orderService.updateOrderStatus(order_id, status),HttpStatus.OK) ;
+    }
+
 }
