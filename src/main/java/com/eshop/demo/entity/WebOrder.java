@@ -73,11 +73,11 @@ public class WebOrder {
         this.payment = payment;
     }
 
-    public void addQuantities(WebOrderQuantities webOrderQuantities){
+    public void addQuantities(List<WebOrderQuantities> webOrderQuantities){
         if(quantities==null){
             quantities=new ArrayList<>();
         }
-        quantities.add(webOrderQuantities);
+        quantities.addAll(webOrderQuantities);
     }
 
     @Override

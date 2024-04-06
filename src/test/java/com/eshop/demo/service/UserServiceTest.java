@@ -1,5 +1,7 @@
 package com.eshop.demo.service;
 
+import com.eshop.demo.DAO.UserDAO;
+import com.eshop.demo.entity.User;
 import com.eshop.demo.exception.UserAlreadyExists;
 import com.eshop.demo.exception.UserNotFound;
 import com.eshop.demo.exception.UserNotVerifiedException;
@@ -17,6 +19,8 @@ import static org.junit.jupiter.api.Assertions.*;
 class UserServiceTest {
     @Autowired
     private UserService userService;
+    @Autowired
+    private UserDAO userDAO;
 
     @Test
     @Transactional
@@ -57,6 +61,4 @@ class UserServiceTest {
     public void testDefineUser(){
         Assertions.assertFalse(userService.defineUser("ChrisMi1"));
     }
-
-
 }

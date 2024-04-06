@@ -31,18 +31,27 @@ public class OrderService {
         }else {
             payment = paymentDAO.save(payment);
         }
-        int id=0;
+       /* int id=0;
         for(var elem:user.getAddresses()){
             if(elem.getAddressLine1().equals(orderBody.getAddressLine1())){//1 user can't have 2 same addresses so this is going to be true 1 only time
                 id= elem.getId();//keep the id of the address
                 break;
             }
-        }
+        }*/
+        //we cant find the address through the addressLine1 because in the case of 2 people have the same address(living in the same house) will return 2 records
+        int id =user.getAddresses().stream()
+                .filter(address -> address.getAddressLine1().equals(orderBody.getAddressLine1()))
+                .map(Address::getId).findFirst().get();
+
         Address address = addressDAO.findById(id).get();
         WebOrder webOrder = new WebOrder(user,address,payment);
-        for(var elem:orderBody.getProductQuantities().keySet()){
+        /*for(var elem:orderBody.getProductQuantities().keySet()){
             webOrder.addQuantities(new WebOrderQuantities(webOrder,productDAO.findProductById(elem),orderBody.getProductQuantities().get(elem)));
-        }
+        }*/
+        List<WebOrderQuantities> webOrderQuantities = orderBody.getProductQuantities().keySet().stream()
+                .map(product-> new WebOrderQuantities(webOrder,productDAO.findProductById(product),orderBody.getProductQuantities().get(product))
+                ).toList();
+        webOrder.addQuantities(webOrderQuantities);
         webOrderDAO.save(webOrder);
         return webOrder;
     }
